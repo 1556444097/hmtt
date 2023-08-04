@@ -110,9 +110,46 @@ public class AppJwtUtil {
     }
 
     public static void main(String[] args) {
+
+        // 载荷
+        Map<String, Object> claimMaps = new HashMap<>();
+        claimMaps.put("id", 9527);
+        long currentTime = System.currentTimeMillis();
+        String token = Jwts.builder()
+                .setId(UUID.randomUUID().toString())
+                .setIssuedAt(new Date(currentTime))  //签发时间
+                .setSubject("system")  //说明
+                .setIssuer("heima") //签发者信息
+                .setAudience("app")  //接收用户
+                .compressWith(CompressionCodecs.GZIP)  //数据压缩方式
+                .signWith(SignatureAlgorithm.HS512, generalKey()) //加密方式
+                //过期一个小时
+                .setExpiration(new Date(currentTime + TOKEN_TIME_OUT * 1000))  //过期时间戳
+                .addClaims(claimMaps) //cla信息  加入载荷
+                .compact();// 生成token
+
+        System.out.println(token);// 有效期是1秒
+
+
+        // 解析token
+
+        try {
+            // 解析token不报错，说明token是有效
+            Claims payload = Jwts.parser()
+                    .setSigningKey(generalKey())
+                    .parseClaimsJws(token).getBody();
+            System.out.println(payload.get("id"));
+        } catch (ExpiredJwtException e) {
+            System.err.println("token过期了");
+            e.printStackTrace();
+        } catch (Exception e) {
+            // 被 修改了，或者密钥不对
+            e.printStackTrace();
+        }
+
        /* Map map = new HashMap();
         map.put("id","11");*/
-        String token = AppJwtUtil.createToken(1102L);
+        /*String token = AppJwtUtil.createToken(1102L);
         System.out.println(token);
 
         try {
@@ -125,7 +162,7 @@ public class AppJwtUtil {
         Claims claims = AppJwtUtil.getClaimsBody(token);
         Integer integer = AppJwtUtil.verifyToken("dsafafsa");
         System.out.println(integer);
-        System.out.println(claims);
+        System.out.println(claims);*/
 
     }
 }

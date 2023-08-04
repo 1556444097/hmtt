@@ -10,10 +10,10 @@ import lombok.Data;
  * 频道分页查询条件
  **/
 @Data
-@ApiModel(description = "频道分页查询条件")
+@ApiModel(value = "ChannelPageRequestDto", description = "频道分页查询条件")
 public class ChannelPageRequestDto extends PageRequestDto {
-    @ApiModelProperty(notes = "频道名称，实现模糊查询",dataType = "String")
+    @ApiModelProperty(notes = "频道名称，实现模糊查询", required = false, dataType = "String")
     private String name;
-    @ApiModelProperty(notes = "频道状态，实现精确查询",dataType = "Integer")
+    @ApiModelProperty(notes = "频道状态，实现精确查询", required = false, dataType = "Integer")
     private Integer status;
 }

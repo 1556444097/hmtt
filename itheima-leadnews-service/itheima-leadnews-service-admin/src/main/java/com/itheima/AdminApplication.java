@@ -9,15 +9,17 @@ import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 //mybatis的mapper扫包
 @MapperScan(basePackages = "com.itheima.admin.mapper")
-public class AdminApp {
+@EnableDiscoveryClient
+public class AdminApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AdminApp.class, args);
+        SpringApplication.run(AdminApplication.class, args);
     }
 
     // Mybatis Plus 分页插件, 版本不一样而已

@@ -1,8 +1,11 @@
 package com.itheima.common.vo;
 
 import com.itheima.common.enums.HttpCodeEnum;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.checkerframework.checker.units.qual.A;
 
 import java.io.Serializable;
 
@@ -13,14 +16,15 @@ import java.io.Serializable;
  */
 @Data
 @AllArgsConstructor
+@ApiModel(value = "ResultVo", description = "通用响应结果")
 public class ResultVo<T> implements Serializable {
-
+    @ApiModelProperty(value = "请求响应域名", required = true, dataType = "String")
     private String host;
-
+    @ApiModelProperty(value = "请求响应码", required = true, dataType = "Integer")
     private Integer code;
-
+    @ApiModelProperty(value = "请求响应消息", required = true, dataType = "String")
     private String errorMessage;
-
+    @ApiModelProperty(value = "请求响应数据", required = true, dataType = "JSON")
     private T data;
 
     public ResultVo() {

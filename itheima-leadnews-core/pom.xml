@@ -14,6 +14,7 @@
     <description>核心业务相关的父工程</description>
     <modules>
         <module>itheima-leadnews-core-controller</module>
+        <module>itheima-leadnews-core-knife4j</module>
     </modules>
 	 <dependencies>
         <dependency>

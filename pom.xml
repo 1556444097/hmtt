@@ -65,6 +65,12 @@
             <artifactId>knife4j-spring-boot-starter</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+
 
         <!--swagger2-->
         <!--<dependency>
@@ -77,8 +83,7 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.9.2</version>
-        </dependency>
--->
+        </dependency>-->
     </dependencies>
 <!--  【注意】：dependencyManagement 它只做版本管理，不会触发自动下载依赖
   如果要下载依赖，则把这个依赖剪切到上面  <dependencies> 下，不能放到dependencyManagement下。
