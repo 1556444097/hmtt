@@ -15,3 +15,12 @@ spring:
 # 设置Mapper接口所对应的XML文件位置，如果你在Mapper接口中有自定义方法，需要进行该配置
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
+
+
+# knife4j配置
+steven:
+  knife4j:
+    description: 黑马头条平台管理系统api
+    title: 黑马头条平台管理系统api
+    contact: 深圳黑马程序员
+    serviceUrl: http://www.itheima.com

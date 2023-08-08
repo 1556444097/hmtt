@@ -8,9 +8,12 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwsHeader;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,9 +25,10 @@ import java.util.UUID;
  * @description 标题
  * @package com.itheima.common.util
  */
+@Slf4j
 public class AppJwtUtil {
     // TOKEN的有效期一天（S）
-    private static final int TOKEN_TIME_OUT = 1;
+    private static final long TOKEN_TIME_OUT = 100000;
     // 加密KEY
     private static final String TOKEN_ENCRY_KEY = "MDk4ZjZiY2Q0NjIxZDM3M2NhZGU0ZTgzMjYyN2I0ZjY";
     // 最小刷新间隔(S)
@@ -35,6 +39,8 @@ public class AppJwtUtil {
         Map<String, Object> claimMaps = new HashMap<>();
         claimMaps.put("id", id);
         long currentTime = System.currentTimeMillis();
+        log.info("JWT过期时间: {}", new Date(currentTime + TOKEN_TIME_OUT * 100000));
+        log.info(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(currentTime + TOKEN_TIME_OUT * 100000)));
         return Jwts.builder()
             .setId(UUID.randomUUID().toString())
             .setIssuedAt(new Date(currentTime))  //签发时间
@@ -44,7 +50,7 @@ public class AppJwtUtil {
             .compressWith(CompressionCodecs.GZIP)  //数据压缩方式
             .signWith(SignatureAlgorithm.HS512, generalKey()) //加密方式
             //过期一个小时
-            .setExpiration(new Date(currentTime + TOKEN_TIME_OUT * 1000))  //过期时间戳
+            .setExpiration(new Date(currentTime + TOKEN_TIME_OUT * 100000))  //过期时间戳
             .addClaims(claimMaps) //cla信息
             .compact();
     }
@@ -115,6 +121,8 @@ public class AppJwtUtil {
         Map<String, Object> claimMaps = new HashMap<>();
         claimMaps.put("id", 9527);
         long currentTime = System.currentTimeMillis();
+        log.info(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(currentTime + TOKEN_TIME_OUT * 100000)));
+        log.info("JWT过期时间: {}", new Date(currentTime + TOKEN_TIME_OUT * 100000));
         String token = Jwts.builder()
                 .setId(UUID.randomUUID().toString())
                 .setIssuedAt(new Date(currentTime))  //签发时间
